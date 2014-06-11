@@ -34,27 +34,30 @@ class Apartamento < Arrendario
 
 	def self.agregar_a_lista(apartamento)
 		$lista_apartamentos[$lista_apartamentos.length] = apartamento
-		puts "Se agrego el apartamento a la lista principal"
+		puts "Se agrego #{apartamento} a la lista principal"
 	end
 
 	def buscar_caracteristica(caracteristica) #recibe lista
 		lista_res = []
+		lista_temp = []
 		ind = 0
-		for c in caracteristica
+		ind2 = 0
+		while caracteristica.length > ind2
 			while @caracteristicas.length > ind
 				caracteristica_de_lista = @caracteristicas[ind]
-				if c == caracteristica_de_lista
-					lista_res = lista_res + [true]
+				if caracteristica[ind2] == caracteristica_de_lista
+					lista_temp = lista_temp + [true]
 					break
-				elsif @caracteristicas.length == ind + 2 and c != @caracteristicas[ind+1]
-					lista_res = lista_res + [false]
+				elsif @caracteristicas.length == ind + 2 and caracteristica[ind2] != @caracteristicas[ind+1]
+					lista_temp = lista_temp + [false]
 					break
 				end
 				ind = ind + 1
 			end
+			lista_res = lista_res + [Apartamento.disyuncion(lista_temp)]
+			ind2 = ind2 + 1
 		end
-		puts Apartamento.es_verdad(lista_res)
-		#lista_res
+		Apartamento.conjuncion(lista_res)
 	end
 
 	def buscar_facilidad(facilidad)
@@ -68,13 +71,22 @@ class Apartamento < Arrendario
 		#lista_res
 	end
 
-	def self.es_verdad(lista)
+	def self.conjuncion(lista)
 		for i in lista
 			if not i
 				return false
 			end
 		end
 		true
+	end
+
+	def self.disyuncion(lista)
+		for i in lista
+			if i
+				return true
+			end
+		end
+		false
 	end
 end
 
@@ -92,18 +104,35 @@ class Buscador < Apartamento
 				end
 			end
 		end
-		lista_res
+		puts lista_res
 	end
 end
 
 
 
 
-apartamento = Apartamento.new("La Posada","Excelente lugar para pasar tu semestre","47G 00 N 08G 00 E",75000,"Fdz","fa.fdz@me.com",83791648)
-apartamento.agrega_caracteristica("Cama compartida")
+apartamento = Apartamento.new("La Posada","Excelente lugar para pasar tu semestre","23G 00 N 08G 00 E",75000,"Fdz","fa.fdz@me.com",83791648)
+apartamento.agrega_caracteristica("Cama individual incluida")
+apartamento.agrega_caracteristica("Cerca del TEC")
 apartamento.agrega_caracteristica("Vista a Cartago")
 apartamento.agrega_facilidad("TV")
 apartamento.agrega_facilidad("Internet")
 apartamento.agrega_facilidad("Luz")
 Apartamento.agregar_a_lista(apartamento)
-Buscador.buscar_en_lista(["Cama compartida","Vista a Cartago"])
+
+apartamento1 = Apartamento.new("La Pension","Excelente lugar para pasar tu semestre","32G 00 N 08G 00 E",75000,"Fdz","fa.fdz@me.com",83791648)
+apartamento1.agrega_caracteristica("Cama individual incluida")
+apartamento1.agrega_caracteristica("Vista a Cartago")
+apartamento1.agrega_facilidad("TV")
+apartamento1.agrega_facilidad("Internet")
+apartamento1.agrega_facilidad("Luz")
+Apartamento.agregar_a_lista(apartamento1)
+
+apartamento2 = Apartamento.new("Moe's","Excelente lugar para pasar tu semestre","21G 00 N 08G 00 E",75000,"Fdz","fa.fdz@me.com",83791648)
+apartamento2.agrega_caracteristica("Vista a Cartago")
+apartamento2.agrega_facilidad("TV")
+apartamento2.agrega_facilidad("Internet")
+apartamento2.agrega_facilidad("Luz")
+Apartamento.agregar_a_lista(apartamento2)
+
+Buscador.buscar_en_lista(["Cama individual incluida","Vista a Cartago"])
