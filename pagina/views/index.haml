@@ -1,0 +1,116 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
+    %title Stylish Portfolio Template for Bootstrap
+    / Bootstrap core CSS
+    %link{href: "css/bootstrap.css", rel: "stylesheet"}/
+    %link{href: "css/bootstrap-social.css", rel: "stylesheet", type: "text/css"}/
+    / Add custom CSS here
+    %link{href: "css/stylish-portfolio.css", rel: "stylesheet"}/
+    %link{href: "font-awesome/css/font-awesome.min.css", rel: "stylesheet"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300", rel: "stylesheet", type: "text/css"}/
+  %body
+    / Side Menu
+    %a#menu-toggle.btn.btn-primary.btn-lg.toggle{href: "#"}
+      %i.fa.fa-bars
+    #sidebar-wrapper
+      %ul.sidebar-nav
+        %a#menu-close.btn.btn-default.btn-lg.pull-right.toggle{href: "#"}
+          %i.fa.fa-times
+        %li.sidebar-brand
+          %a{href: "http://startbootstrap.com"} Start Bootstrap
+        %li
+          %a{href: "#top"} Home
+        %li
+          %a{href: "#about"} About
+        %li
+          %a{href: "#services"} Services
+        %li
+          %a{href: "#portfolio"} Portfolio
+        %li
+          %a{href: "#contact"} Contact
+    / /Side Menu
+    / Full Page Image Header Area
+    #top.header
+      .vert-text
+        %h1{style: "font-family: 'Open Sans', sans-serif;"} DepaRent-Search
+        %h4
+          Encuentra el apartamento que necesitas, cuando lo necesitas.
+        %br/
+        %a.btn.btn-default.btn-md{href: "#about"} Find Out More
+    / /Full Page Image Header Area
+    / Intro
+    #about.intro
+      .container
+        .row
+          .col-md-6.text-center
+            %h2 Iniciar sesión
+            %p.lead Para crear tu cuenta, unicamente inicia sesión con Facebook.
+            %button.btn.btn-facebook
+              %i.fa.fa-facebook
+              | Login with Facebook
+    / /Intro
+    / Callout
+    .callout
+      .vert-text
+        %h1 Iniciar sesión
+        %p.lead Para crear tu cuenta, unicamente inicia sesión con Facebook.
+        %a{href: "http://localhost:4567/auth/facebook"}
+          %button.btn.btn-facebook
+            %i.fa.fa-facebook
+            | Login with Facebook
+        %br/
+    / /Callout
+    / Footer
+    %footer
+      .container
+        .row
+          .col-md-6.col-md-offset-3.text-center
+            %ul.list-inline
+              %li
+                %i.fa.fa-facebook.fa-3x
+              %li
+                %i.fa.fa-twitter.fa-3x
+              %li
+                %i.fa.fa-dribbble.fa-3x
+            .top-scroll
+              %a{href: "#top"}
+                %i.fa.fa-circle-arrow-up.scroll.fa-4x
+            %hr/
+            %p TI-3404 Lenguajes de programación, Instituto Tecnológico de Costa Rica
+            %br/
+    / /Footer
+    / JavaScript
+    %script{src: "js/jquery-1.10.2.js"}
+    %script{src: "js/bootstrap.js"}
+    / Custom JavaScript for the Side Menu and Smooth Scrolling
+    :javascript
+      $("#menu-close").click(function(e) {
+          e.preventDefault();
+          $("#sidebar-wrapper").toggleClass("active");
+      });
+    :javascript
+      $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#sidebar-wrapper").toggleClass("active");
+      });
+    :javascript
+      $(function() {
+          $('a[href*=#]:not([href=#])').click(function() {
+              if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                  var target = $(this.hash);
+                  target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                  if (target.length) {
+                      $('html,body').animate({
+                          scrollTop: target.offset().top
+                      }, 1000);
+                      return false;
+                  }
+              }
+          });
+      });
