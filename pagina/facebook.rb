@@ -35,11 +35,6 @@ class SinatraApp < Sinatra::Base
     session[:authenticated] = true
     redirect "/inicio"
   end
-
-  get "/inicio" do
-    erb "holis"
-
-  end
   
   get '/auth/failure' do
     erb "<h1>Authentication Failed:</h1><h3>message:<h3> <pre>#{params}</pre>"
@@ -49,10 +44,9 @@ class SinatraApp < Sinatra::Base
     erb "#{params[:provider]} has deauthorized this app."
   end
   
-  get '/protected' do
+  get '/inicio' do
     throw(:halt, [401, "Not authorized\n"]) unless session[:authenticated]
-    erb "<pre>#{request.env['omniauth.auth'].to_json}</pre><hr>
-         <a href='/logout'>Logout</a>"
+    haml :inicioSesion
   end
   
   get '/logout' do

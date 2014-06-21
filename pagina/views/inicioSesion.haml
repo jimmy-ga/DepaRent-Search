@@ -1,0 +1,213 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
+    %title Stylish Portfolio Template for Bootstrap
+    / Bootstrap core CSS
+    %link{href: "css/bootstrap.css", rel: "stylesheet"}/
+    / JQuery para inputs numeros
+    %script{src: "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
+    %script{src: "jquery.spinner.js"}
+    %link{href: "bootstrap-spinner.css", rel: "stylesheet"}/
+    / Add custom CSS here
+    %link{href: "css/stylish-portfolio.css", rel: "stylesheet"}/
+    %link{href: "font-awesome/css/font-awesome.min.css", rel: "stylesheet"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300", rel: "stylesheet", type: "text/css"}/
+  %body
+    / Side Menu
+    %a#menu-toggle.btn.btn-primary.btn-lg.toggle{href: "#"}
+      %i.fa.fa-bars
+    #sidebar-wrapper
+      %ul.sidebar-nav
+        %a#menu-close.btn.btn-default.btn-lg.pull-right.toggle{href: "#"}
+          %i.fa.fa-times
+        %li.sidebar-brand
+          %a{href: "http://startbootstrap.com"} Start Bootstrap
+        %li
+          %a{href: "#top"} Home
+        %li
+          %a{href: "#about"} About
+        %li
+          %a{href: "#services"} Services
+        %li
+          %a{href: "#portfolio"} Portfolio
+        %li
+          %a{href: "#contact"} Contact
+    / /Side Menu
+    / Full Page Image Header Area
+    #top.agregarApt
+      .vert-text
+        %h1{style: "font-family: 'Open Sans', sans-serif;"} Agregar un apartamento
+        %h4 Texto de muestra, no sé que poner
+        %br/
+        %a.btn.btn-default.btn-md{href: "#about"} Llenar el formulario
+    / /Full Page Image Header Area
+    / Formulario de agregar apartamento
+    #about.intro
+      .container
+        %h2.text-center Agregar un apartamento
+        %br/
+        %br/
+        .row
+          %form.container
+            .row
+              .col-md-6
+                / <label for="username" class="control-label">label</label>
+                %legend Titulo
+                %input#titulo.form-control{autofocus: "", placeholder: "Ingresa el titulo del anuncio", type: "text"}/
+                %br/
+                %legend Descripción
+                %input.form-control{autofocus: "", id: "descripción", placeholder: "Ingresa la descripción del artículo", type: "text"}/
+                %br/
+                %legend Contacto
+                %input#email1.form-control{autofocus: "", placeholder: "Ingresa tu e-mail", type: "email"}/
+                %br/
+                %input#email1.form-control{autofocus: "", placeholder: "Ingresa tu número de teléfono", type: "tel"}/
+                %br/
+                %legend Caracteristicas
+                %div
+                  %label{for: "precio", placeholder: "Precio"} Precio
+                  %input{autofocus: "", id: "descripción", style: "float:right;", type: "number"}/
+                  %br/
+                  %br/
+                  %label{for: "cuartos", placeholder: "Cuartos"} Cuartos
+                  %input{autofocus: "", id: "descripción", style: "float:right;", type: "number"}/
+                  %br/
+                  %br/
+                  %label{for: "internet", placeholder: "internet"} Internet
+                  %div{style: "float:right;"}
+                    %input{name: "internet", type: "radio", value: "si"}>/
+                    Si
+                    = succeed "No" do
+                      %input{name: "internet", type: "radio", value: "no"}/
+                  %br/
+                  %br/
+                  %label{for: "cable", placeholder: "cable"} Cable
+                  %div{style: "float:right;"}
+                    %input{name: "cable", type: "radio", value: "si"}>/
+                    Si
+                    = succeed "No" do
+                      %input{name: "cable", type: "radio", value: "no"}/
+                  %br/
+                  %br/
+                  %label{for: "Comparte", placeholder: "Comparte"} Comparte cuarto?
+                  %div{style: "float:right;"}
+                    %input{name: "Comparte", type: "radio", value: "si"}>/
+                    Si
+                    = succeed "No" do
+                      %input{name: "Comparte", type: "radio", value: "no"}/
+                  %br/
+                  %br/
+              .col-md-6
+                / Mapa
+                %legend Ubicación en el mapa
+                #contact.map
+                  %iframe{frameborder: "0", height: "100%", src: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3930.957104149629!2d-83.909573!3d9.853965999999998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0df8c91f7ca25%3A0x113f04205aacd4c9!2sTecnol%C3%B3gico+de+Costa+Rica!5e0!3m2!1sen!2s!4v1402637115253", style: "border:0", width: "100%"}
+            %input.btn{type: "submit"}/
+    / /Formulario agregar contacto
+    / Transición
+    .callout
+      .vert-text
+    / /Transición
+    / Buscar Apartamentos
+    #about.intro
+      .container
+        %h2.text-center Buscar Apartamentos
+        %br/
+        %br/
+        .row
+          %h2.text-center
+            %legend Buscar por caracteristicas
+          %br/
+          %br/
+          .col-md-6
+            %legend Buscar por precio
+            %form{action: "buscarPrecio"}
+              %input#buscCuartos.form-control{autofocus: "", placeholder: "Ingresa el precio máximo", style: "width: 70%", type: "number"}/
+              %br/
+              %input.btn{type: "submit"}/
+          .col-md-6
+            %legend Buscar por número de cuartos
+            %form{action: "buscarNumCuartos"}
+              %input#buscNumCuart.form-control{autofocus: "", placeholder: "Ingresa el número de cuartos que buscas", style: "width: 70%", type: "number"}/
+              %br/
+              %input.btn{type: "submit"}/
+        .row
+          .col-md-6
+            %br/
+            %br/
+            %legend Buscas un cuarto con internet?
+            %form{action: "buscarInternet"}
+              %div{style: "float:center;"}
+                %input{name: "internetCuarto", type: "radio", value: "si"}>/
+                Si
+                = succeed "No" do
+                  %input{name: "internetCuarto", type: "radio", value: "no"}/
+                %br/
+                %br/
+              %input.btn{type: "submit"}/
+          .col-md-6
+            %br/
+            %br/
+            %legend Buscas compartir un cuarto?
+            %form{action: "buscarCompartido"}
+              %div{style: "float:center;"}
+                %input{name: "CuartoCompartido", type: "radio", value: "si"}>/
+                Si
+                = succeed "No" do
+                  %input{name: "CuartoCompartido", type: "radio", value: "no"}/
+                %br/
+                %br/
+              %input.btn{type: "submit"}/
+        / /Buscar Apartamentos
+        / Footer
+        %footer
+          .container
+            .row
+              .col-md-6.col-md-offset-3.text-center
+                %ul.list-inline
+                  %li
+                    %i.fa.fa-facebook.fa-3x
+                  %li
+                    %i.fa.fa-twitter.fa-3x
+                  %li
+                    %i.fa.fa-dribbble.fa-3x
+                .top-scroll
+                  %a{href: "#top"}
+                    %i.fa.fa-circle-arrow-up.scroll.fa-4x
+                %hr/
+                %p Copyright © Company 2013
+        / /Footer
+        / JavaScript
+        %script{src: "js/jquery-1.10.2.js"}
+        %script{src: "js/bootstrap.js"}
+        / Custom JavaScript for the Side Menu and Smooth Scrolling
+        :javascript
+          $("#menu-close").click(function(e) {
+              e.preventDefault();
+              $("#sidebar-wrapper").toggleClass("active");
+          });
+        :javascript
+          $("#menu-toggle").click(function(e) {
+              e.preventDefault();
+              $("#sidebar-wrapper").toggleClass("active");
+          });
+        :javascript
+          $(function() {
+              $('a[href*=#]:not([href=#])').click(function() {
+                  if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                      var target = $(this.hash);
+                      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                      if (target.length) {
+                          $('html,body').animate({
+                              scrollTop: target.offset().top
+                          }, 1000);
+                          return false;
+                      }
+                  }
+              });
+          });
