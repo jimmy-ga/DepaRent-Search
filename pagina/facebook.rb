@@ -54,6 +54,11 @@ class SinatraApp < Sinatra::Base
     redirect '/'
   end
 
+  post '/geocode' do
+		a=buscar_ubicacion('Instituto tecnologico de costa rica')
+		haml :results, :locals => {:resultados => a}
+  end
+
 end
 
 SinatraApp.run! if __FILE__ == $0

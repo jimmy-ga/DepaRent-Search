@@ -1,0 +1,2 @@
+select Usuarios.nombre,Usuarios.correo,Departamentos.Titulo from Usuarios, Departamentos
+where Usuarios.idFB=Departamentos.idFB
