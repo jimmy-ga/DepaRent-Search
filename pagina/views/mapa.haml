@@ -12,7 +12,11 @@
       var marker=null;
       var infoWindow = null;
       var map = null;
-      
+      var res=#{resultados};
+      var latitud=res[0];
+      var longitud=res[1];
+
+
       function openInfoWindow(marker) {
       var markerLatLng = marker.getPosition();
       infoWindow.setContent([
@@ -23,11 +27,11 @@
         '.'
       ].join(''));
       infoWindow.open(map, marker);
+      document.getElementById("Lat").value = 'Some Value';
       }
 
       function initialize() {
-        var res=#{resultados};
-        var myLatlng=new google.maps.LatLng(res[0],res[1])
+        var myLatlng=new google.maps.LatLng(latitud,longitud)
         var mapOptions = {
           center: myLatlng,
           zoom: 17,
@@ -57,4 +61,4 @@
 
       google.maps.event.addDomListener(window, 'load', initialize);
   %body
-    #map-canvas(style="width: 100%; height: 1000px;")
+    #map-canvas(style="width: 100%; height: 100%;")

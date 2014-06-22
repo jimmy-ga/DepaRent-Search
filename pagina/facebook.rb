@@ -6,11 +6,12 @@ require 'omniauth-github'
 require 'omniauth-facebook'
 require 'omniauth-twitter'
 require "haml"
+require "./Geokit.rb"
 #TODO require 'omniauth-att'
 
 class SinatraApp < Sinatra::Base
 
-
+	set :bind, '0.0.0.0'
   configure do
     set :sessions, true
     set :inline_templates, true
@@ -52,6 +53,12 @@ class SinatraApp < Sinatra::Base
   get '/logout' do
     session[:authenticated] = false
     redirect '/'
+  end
+
+	get '/mapaL' do
+		#"Hello World"
+		@a=buscar_ubicacion('Instituto tecnologico de costa rica')
+    haml :mapa, :locals => {:resultados => @a}
   end
 
   post '/geocode' do

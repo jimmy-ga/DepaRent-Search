@@ -101,11 +101,19 @@
                       %input{name: "Comparte", type: "radio", value: "no"}/
                   %br/
                   %br/
+                  %div{style: "float:right;"}
+                    %input{name: "Lat", type: "text", value: "latitud"}>/
+                  %br/
+                  %br/
+                  %div{style: "float:right;"}
+                    %input{name: "Long", type: "text", value: "longitud", readonly:"readonly"}>/
+                  %br/
+                  %br/
               .col-md-6
                 / Mapa
                 %legend Ubicación en el mapa
                 #contact.map
-                  %iframe{frameborder: "0", height: "100%", src: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3930.957104149629!2d-83.909573!3d9.853965999999998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0df8c91f7ca25%3A0x113f04205aacd4c9!2sTecnol%C3%B3gico+de+Costa+Rica!5e0!3m2!1sen!2s!4v1402637115253", style: "border:0", width: "100%"}
+                  %iframe{frameborder: "0", height: "100%", src: "mapaL",style: "border:0", width: "100%"}
             %input.btn{type: "submit"}/
     / /Formulario agregar contacto
     / Transición
