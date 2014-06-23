@@ -52,25 +52,25 @@
         %br/
         %br/
         .row
-          %form.container
+          %form.container{action: "/agregarAparta", method: "post"}
             .row
               .col-md-6
                 / <label for="username" class="control-label">label</label>
                 %legend Titulo
-                %input#titulo.form-control{autofocus: "", placeholder: "Ingresa el titulo del anuncio", type: "text"}/
+                %input#titulo.form-control{name: "titulo", autofocus: "", placeholder: "Ingresa el titulo del anuncio", type: "text"}/
                 %br/
                 %legend Descripción
-                %input.form-control{autofocus: "", id: "descripción", placeholder: "Ingresa la descripción del artículo", type: "text"}/
+                %input.form-control{name: "descripcion", autofocus: "", id: "descripción", placeholder: "Ingresa la descripción del artículo", type: "text"}/
                 %br/
                 %legend Contacto
-                %input#email1.form-control{autofocus: "", placeholder: "Ingresa tu e-mail", type: "email"}/
+                %input#email1.form-control{name: "correo", autofocus: "", placeholder: "Ingresa tu e-mail", type: "email"}/
                 %br/
-                %input#email1.form-control{autofocus: "", placeholder: "Ingresa tu número de teléfono", type: "tel"}/
+                %input#email1.form-control{name: "numeroTelefono", autofocus: "", placeholder: "Ingresa tu número de teléfono", type: "tel"}/
                 %br/
                 %legend Caracteristicas
                 %div
                   %label{for: "precio", placeholder: "Precio"} Precio
-                  %input{autofocus: "", id: "descripción", style: "float:right;", type: "number"}/
+                  %input{name: "precioAparta", autofocus: "", id: "descripción", style: "float:right;", type: "number"}/
                   %br/
                   %br/
                   %label{for: "cuartos", placeholder: "Cuartos"} Cuartos

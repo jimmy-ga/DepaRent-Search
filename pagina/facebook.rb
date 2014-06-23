@@ -66,6 +66,21 @@ class SinatraApp < Sinatra::Base
 		haml :results, :locals => {:resultados => a}
   end
 
+
+
+##Aquí se recogen los datos del formulario y se devuelven en una página que todavía no está, es una prueba!
+  post "/agregarAparta" do
+    titulo = params[:titulo]
+    desc = params[:descripcion]
+    correo = params[:correo]
+    telefono = params[:numeroTelefono]
+    precio = params[:precioAparta]
+
+
+    "nombre = #{titulo}, descripcion = #{desc}, correo = #{correo}, telefono = #{telefono}, precio = #{precio}"
+
+  end
+
 end
 
 SinatraApp.run! if __FILE__ == $0
