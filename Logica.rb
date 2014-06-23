@@ -1,5 +1,4 @@
 class Arrendario
-	protected
 	def initialize(nombre,correo,telefono,ids,favoritos) 
 		@nombre = nombre
 		@correo = correo
@@ -8,7 +7,26 @@ class Arrendario
 		@favoritos = favoritos
 	end
 
-	public
+	def getNombre()
+		@nombre
+	end
+
+	def getCorreo()
+		@correo
+	end
+
+	def getTelefono()
+		@telefono
+	end
+
+	def getIDs_Asociados()
+		@ids_asociados
+	end
+
+	def getFavoritos()
+		@favoritos
+	end
+
 	def quita_favorito(id)
 		largo_lista = @favoritos.length
 		while i < largo_lista
@@ -40,25 +58,23 @@ class Apartamento < Arrendario
 		@ubicacion = ubicacion.downcase
 		@precio = precio
 		@id = id
-		puts "Exito al crear apartamento #{self}"
+		return "Exito al crear apartamento #{self}"
 	end
 
 	def agrega_facilidad(facilidad)
 		@facilidades[@facilidades.length] = facilidad.downcase
-		if Apartamento.esta(@@facilidades_globales,facilidad.downcase)
+		if not Apartamento.esta(@@facilidades_globales,facilidad.downcase)
 			@@facilidades_globales = @@facilidades_globales + [facilidad.downcase]
 		end
-		#puts "Facilidad Agregada"
 	end
 
 	def agrega_caracteristica(caracteristica)
 		@caracteristicas[@caracteristicas.length] = caracteristica.downcase
-		#puts "Caracteristica Agregada"
 	end
 
 	def self.agregar_a_lista(apartamento)
 		$lista_apartamentos[$lista_apartamentos.length] = apartamento
-		puts "Se agrego #{apartamento.getTitulo} a la lista principal"
+		return "Se agrego #{apartamento.getTitulo} a la lista principal"
 	end
 
 	def getTitulo()
@@ -67,6 +83,26 @@ class Apartamento < Arrendario
 
 	def getDescripcion()
 		@descripcion.capitalize
+	end
+
+	def getPrecio()
+		@precio
+	end
+
+	def getCaracteristicas()
+		@caracteristicas
+	end
+
+	def getFacilidades()
+		@facilidades
+	end
+
+	def getUbicacion()
+		@ubicacion
+	end
+
+	def getID()
+		@id
 	end
 
 	def buscar_caracteristica(caracteristica) #recibe lista de caracteristicas y lista donde desea buscar
@@ -118,10 +154,10 @@ class Apartamento < Arrendario
 	def self.esta(lista,obj)
 		for i in lista
 			if i == obj
-				return false
+				return true
 			end
 		end
-		true
+		false
 	end
 
 	def self.conjuncion(lista)
@@ -141,6 +177,36 @@ class Apartamento < Arrendario
 		end
 		false
 	end
+
+	def self.Sort_Menor_a_Mayor(vector) #Primero el precio mas bajo hasta el precio mas alto
+    	i=1
+      	while i < vector.length
+        	aux = vector[i]
+        	j=i-1
+        	while j >= 0 and vector[j].getPrecio > aux.getPrecio
+            	vector[j+1] = vector[j]
+            	j = j - 1
+        	end
+        	vector[j+1] = aux
+        	i = i + 1
+      	end
+      	return vector;
+    end
+
+    def self.Sort_Mayor_a_Menor(vector) #Primero el precio mas alto hasta el precio mas bajo
+    	i=1
+      	while i < vector.length
+        	aux = vector[i].getPrecio
+        	j=i-1
+        	while j >= 0 and vector[j].getPrecio < aux
+            	vector[j+1] = vector[j]
+            	j = j - 1
+        	end
+        	vector[j+1] = aux
+        	i = i + 1
+      	end
+      	return vector;
+    end
 end
 
 class Buscador < Apartamento
@@ -160,7 +226,7 @@ class Buscador < Apartamento
 		if car != nil
 			Buscador.buscar_caracteristica(car,lista_res)
 		else
-			puts lista_res
+			return lista_res
 		end
 	end
 
@@ -180,11 +246,13 @@ class Buscador < Apartamento
 				end
 			end
 		end
-		puts "-----------lista de apartamentos--------------"
-		puts lista_res
+		return lista_res
 	end
 
 	def self.buscar_en_lista(obj)
+		if obj == []
+			return "No hay resultados para su busqueda"
+		end
 		obj = Buscador.lista_downcase(obj)
 		faci = []
 		ind = 0
@@ -251,10 +319,7 @@ class Buscador < Apartamento
 	end
 end
 
-
-
-
-apartamento = Apartamento.new("La Posada","Excelente lugar para pasar tu semestre","23G 00 N 08G 00 E",75000,83791648)
+apartamento = Apartamento.new("La Posada","Excelente lugar para pasar tu semestre","23G 00 N 08G 00 E",72000,83791648) #Orden 1
 apartamento.agrega_caracteristica("Cama individual incluida")
 apartamento.agrega_caracteristica("Cerca del TEC")
 apartamento.agrega_caracteristica("Vista a Cartago")
@@ -263,7 +328,7 @@ apartamento.agrega_facilidad("Internet")
 apartamento.agrega_facilidad("Luz")
 Apartamento.agregar_a_lista(apartamento)
 
-apartamento1 = Apartamento.new("La Pension","Excelente lugar para pasar tu semestre","32G 00 N 08G 00 E",75000,83791648)
+apartamento1 = Apartamento.new("La Pension","Excelente lugar para pasar tu semestre","32G 00 N 08G 00 E",85000,83791648) #Orden 3
 apartamento1.agrega_caracteristica("Cama individual incluida")
 apartamento1.agrega_caracteristica("Vista a Cartago")
 apartamento1.agrega_facilidad("TV")
@@ -271,11 +336,12 @@ apartamento1.agrega_facilidad("Internet")
 apartamento1.agrega_facilidad("Luz")
 Apartamento.agregar_a_lista(apartamento1)
 
-apartamento2 = Apartamento.new("Moe's","Excelente lugar para pasar tu semestre","21G 00 N 08G 00 E",75000,83791648)
+apartamento2 = Apartamento.new("Moe's","Excelente lugar para pasar tu semestre","21G 00 N 08G 00 E",75000,83791648) #Orden 2
 apartamento2.agrega_caracteristica("Vista a Cartago")
 apartamento2.agrega_facilidad("TV")
 apartamento2.agrega_facilidad("Internet")
 apartamento2.agrega_facilidad("Luz")
 Apartamento.agregar_a_lista(apartamento2)
 
-Buscador.buscar_en_lista(["Vista a Cartago"])
+#Buscador.buscar_en_lista([])
+Buscador.Sort_Menor_a_Mayor([5,2,7,4,2,1,0])
