@@ -47,62 +47,69 @@ class Arrendario
 end
 
 $lista_apartamentos = []
-class Apartamento < Arrendario
-	@@facilidades_globales =[]
 
-	def initialize(titulo,descripcion,ubicacion,precio,id)
-		@titulo = titulo.downcase
-		@descripcion = descripcion.downcase
-		@facilidades = []
-		@caracteristicas = []
-		@ubicacion = ubicacion.downcase
-		@precio = precio
-		@id = id
-		return "Exito al crear apartamento #{self}"
+class Buscador
+	def self.buscar_en_lista(obj)
+		if obj == []
+			return "No hay resultados para su busqueda"
+		end
+		obj = Buscador.lista_downcase(obj)
+		faci = []
+		ind = 0
+		ind2 = 0
+		while @@facilidades_globales.length > ind #Separa en listas de facilidades y de caracteristicas
+			while obj.length > ind2
+				if @@facilidades_globales[ind] == obj[ind2]
+					faci[faci.length] = obj[ind2]
+					obj[ind2] = nil
+					break
+				end
+				ind2 = ind2 + 1
+			end
+			ind2 = 0
+			ind = ind + 1
+		end
+		obj = Buscador.quita_nil(obj)
+		Buscador.buscar_facilidad(faci,obj)
 	end
 
-	def agrega_facilidad(facilidad)
-		@facilidades[@facilidades.length] = facilidad.downcase
-		if not Apartamento.esta(@@facilidades_globales,facilidad.downcase)
-			@@facilidades_globales = @@facilidades_globales + [facilidad.downcase]
+	def self.buscar_facilidad(faci,car) #recibe lista
+		lista_res = "No hay resultados para su busqueda"
+		est = true
+		for i in $lista_apartamentos
+			if i.buscar_facilidad(faci)
+				if est
+					est = false
+					lista_res = [i]
+				else
+					lista_res = lista_res + [i]
+				end
+			end
+		end
+		if car != nil
+			Buscador.buscar_caracteristica(car,lista_res)
+		else
+			return lista_res
 		end
 	end
 
-	def agrega_caracteristica(caracteristica)
-		@caracteristicas[@caracteristicas.length] = caracteristica.downcase
-	end
-
-	def self.agregar_a_lista(apartamento)
-		$lista_apartamentos[$lista_apartamentos.length] = apartamento
-		return "Se agrego #{apartamento.getTitulo} a la lista principal"
-	end
-
-	def getTitulo()
-		@titulo.upcase
-	end
-
-	def getDescripcion()
-		@descripcion.capitalize
-	end
-
-	def getPrecio()
-		@precio
-	end
-
-	def getCaracteristicas()
-		@caracteristicas
-	end
-
-	def getFacilidades()
-		@facilidades
-	end
-
-	def getUbicacion()
-		@ubicacion
-	end
-
-	def getID()
-		@id
+	def self.buscar_caracteristica(obj,lista) #recibe lista
+		if lista[0] == "N"
+			return lista
+		end
+		lista_res = "No hay resultados para su busqueda"
+		est = true
+		for i in lista
+			if i.buscar_caracteristica(obj)
+				if est
+					est = false
+					lista_res = [i]
+				else
+					lista_res = lista_res + [i]
+				end
+			end
+		end
+		return lista_res
 	end
 
 	def buscar_caracteristica(caracteristica) #recibe lista de caracteristicas y lista donde desea buscar
@@ -178,101 +185,6 @@ class Apartamento < Arrendario
 		false
 	end
 
-	def self.Sort_Menor_a_Mayor(vector) #Primero el precio mas bajo hasta el precio mas alto
-    	i=1
-      	while i < vector.length
-        	aux = vector[i]
-        	j=i-1
-        	while j >= 0 and vector[j].getPrecio > aux.getPrecio
-            	vector[j+1] = vector[j]
-            	j = j - 1
-        	end
-        	vector[j+1] = aux
-        	i = i + 1
-      	end
-      	return vector;
-    end
-
-    def self.Sort_Mayor_a_Menor(vector) #Primero el precio mas alto hasta el precio mas bajo
-    	i=1
-      	while i < vector.length
-        	aux = vector[i].getPrecio
-        	j=i-1
-        	while j >= 0 and vector[j].getPrecio < aux
-            	vector[j+1] = vector[j]
-            	j = j - 1
-        	end
-        	vector[j+1] = aux
-        	i = i + 1
-      	end
-      	return vector;
-    end
-end
-
-class Buscador < Apartamento
-	def self.buscar_facilidad(faci,car) #recibe lista
-		lista_res = "No hay resultados para su busqueda"
-		est = true
-		for i in $lista_apartamentos
-			if i.buscar_facilidad(faci)
-				if est
-					est = false
-					lista_res = [i]
-				else
-					lista_res = lista_res + [i]
-				end
-			end
-		end
-		if car != nil
-			Buscador.buscar_caracteristica(car,lista_res)
-		else
-			return lista_res
-		end
-	end
-
-	def self.buscar_caracteristica(obj,lista) #recibe lista
-		if lista[0] == "N"
-			return lista
-		end
-		lista_res = "No hay resultados para su busqueda"
-		est = true
-		for i in lista
-			if i.buscar_caracteristica(obj)
-				if est
-					est = false
-					lista_res = [i]
-				else
-					lista_res = lista_res + [i]
-				end
-			end
-		end
-		return lista_res
-	end
-
-	def self.buscar_en_lista(obj)
-		if obj == []
-			return "No hay resultados para su busqueda"
-		end
-		obj = Buscador.lista_downcase(obj)
-		faci = []
-		ind = 0
-		ind2 = 0
-		while @@facilidades_globales.length > ind #Separa en listas de facilidades y de caracteristicas
-			while obj.length > ind2
-				if @@facilidades_globales[ind] == obj[ind2]
-					faci[faci.length] = obj[ind2]
-					obj[ind2] = nil
-					break
-				end
-				ind2 = ind2 + 1
-			end
-			ind2 = 0
-			ind = ind + 1
-		end
-		obj = Buscador.quita_nil(obj)
-		Buscador.buscar_facilidad(faci,obj)
-	end
-
 	def self.lista_downcase(obj) #vuelve cada elemento de la lista en minusculas
 		largo_lista = obj.length
 		ind = 0
@@ -319,6 +231,95 @@ class Buscador < Apartamento
 	end
 end
 
+class Apartamento < Buscador
+	@@facilidades_globales =[]
+
+	def initialize(titulo,descripcion,ubicacion,precio,id)
+		@titulo = titulo.downcase
+		@descripcion = descripcion.downcase
+		@facilidades = []
+		@caracteristicas = []
+		@ubicacion = ubicacion.downcase
+		@precio = precio
+		@id = id
+		return "Exito al crear apartamento #{self}"
+	end
+
+	def agrega_facilidad(facilidad)
+		@facilidades[@facilidades.length] = facilidad.downcase
+		if not Apartamento.esta(@@facilidades_globales,facilidad.downcase)
+			@@facilidades_globales = @@facilidades_globales + [facilidad.downcase]
+		end
+	end
+
+	def agrega_caracteristica(caracteristica)
+		@caracteristicas[@caracteristicas.length] = caracteristica.downcase
+	end
+
+	def self.agregar_a_lista(apartamento)
+		$lista_apartamentos[$lista_apartamentos.length] = apartamento
+		return "Se agrego #{apartamento.getTitulo} a la lista principal"
+	end
+
+	def getTitulo()
+		@titulo.upcase
+	end
+
+	def getDescripcion()
+		@descripcion.capitalize
+	end
+
+	def getPrecio()
+		@precio
+	end
+
+	def getCaracteristicas()
+		@caracteristicas
+	end
+
+	def getFacilidades()
+		@facilidades
+	end
+
+	def getUbicacion()
+		@ubicacion
+	end
+
+	def getID()
+		@id
+	end
+
+	def self.Sort_Menor_a_Mayor(vector) #Primero el precio mas bajo hasta el precio mas alto
+    	i=1
+      	while i < vector.length
+        	aux = vector[i]
+        	j=i-1
+        	while j >= 0 and vector[j].getPrecio > aux.getPrecio
+            	vector[j+1] = vector[j]
+            	j = j - 1
+        	end
+        	vector[j+1] = aux
+        	i = i + 1
+      	end
+      	return vector;
+    end
+
+    def self.Sort_Mayor_a_Menor(vector) #Primero el precio mas alto hasta el precio mas bajo
+    	i=1
+      	while i < vector.length
+        	aux = vector[i].getPrecio
+        	j=i-1
+        	while j >= 0 and vector[j].getPrecio < aux
+            	vector[j+1] = vector[j]
+            	j = j - 1
+        	end
+        	vector[j+1] = aux
+        	i = i + 1
+      	end
+      	return vector;
+    end
+end
+
 apartamento = Apartamento.new("La Posada","Excelente lugar para pasar tu semestre","23G 00 N 08G 00 E",72000,83791648) #Orden 1
 apartamento.agrega_caracteristica("Cama individual incluida")
 apartamento.agrega_caracteristica("Cerca del TEC")
@@ -344,4 +345,4 @@ apartamento2.agrega_facilidad("Luz")
 Apartamento.agregar_a_lista(apartamento2)
 
 #Buscador.buscar_en_lista([])
-Buscador.Sort_Menor_a_Mayor([5,2,7,4,2,1,0])
+Apartamento.Sort_Menor_a_Mayor([apartamento,apartamento1,apartamento2])
