@@ -1,24 +1,44 @@
 class Arrendario
 	protected
-	def initialize(nombre,correo,telefono)
+	def initialize(nombre,correo,telefono,ids,favoritos) 
 		@nombre = nombre
 		@correo = correo
 		@telefono = telefono
+		@ids_asociados = ids # ids es una lista con los ids de diferentes apartamentos para mas orden
+		@favoritos = favoritos
+	end
+
+	public
+	def quita_favorito(id)
+		largo_lista = @favoritos.length
+		while i < largo_lista
+			if @favoritos[i] == id
+				@favoritos[i] = nil
+				return "Borrado con exito!"
+			end
+		end
+	end
+
+	def agrega_favorito(id)
+		@favoritos = @favoritos + [id]
+	end
+
+	def agrega_id(id)
+		@ids_asociados = @ids_asociados + [id]
 	end
 end
 
-public
 $lista_apartamentos = []
 class Apartamento < Arrendario
 
-	def initialize(titulo,descripcion,ubicacion,precio,nombre_arrendario,correo,telefono)
+	def initialize(titulo,descripcion,ubicacion,precio,id)
 		@titulo = titulo
 		@descripcion = descripcion
 		@facilidades = []
 		@caracteristicas = []
 		@ubicacion = ubicacion
 		@precio = precio
-		super(nombre_arrendario,correo,telefono)
+		@id = id
 		puts "Exito al crear apartamento"
 	end
 
@@ -37,7 +57,7 @@ class Apartamento < Arrendario
 		puts "Se agrego #{apartamento} a la lista principal"
 	end
 
-	def buscar_caracteristica(caracteristica) #recibe lista
+	def buscar_caracteristica(caracteristica) #recibe lista de caracteisticas
 		lista_res = []
 		lista_temp = []
 		ind = 0
@@ -61,14 +81,26 @@ class Apartamento < Arrendario
 	end
 
 	def buscar_facilidad(facilidad)
-		#lista_res = []
-		for i in @facilidades
-			if i == facilidad
-				return true	#lista_res = lista_res + [i]
+		lista_res = []
+		lista_temp = []
+		ind = 0
+		ind2 = 0
+		while facilidad.length > ind2
+			while @facilidades.length > ind
+				facilidad_de_lista = @facilidades[ind]
+				if facilidad[ind2] == facilidad_de_lista
+					lista_temp = lista_temp + [true]
+					break
+				elsif @facilidades.length == ind + 2 and facilidad[ind2] != @facilidades[ind+1]
+					lista_temp = lista_temp + [false]
+					break
+				end
+				ind = ind + 1
 			end
+			lista_res = lista_res + [Apartamento.disyuncion(lista_temp)]
+			ind2 = ind2 + 1
 		end
-		false
-		#lista_res
+		Apartamento.conjuncion(lista_res)
 	end
 
 	def self.conjuncion(lista)
@@ -106,6 +138,17 @@ class Buscador < Apartamento
 		end
 		puts lista_res
 	end
+
+	def self.ordenaPrecio(lista)
+		lista_res = []
+		if lista.length == 1
+			return lista[0]
+		else
+			while i < lista.length
+				
+			end
+		end
+	end
 end
 
 
@@ -135,4 +178,4 @@ apartamento2.agrega_facilidad("Internet")
 apartamento2.agrega_facilidad("Luz")
 Apartamento.agregar_a_lista(apartamento2)
 
-Buscador.buscar_en_lista(["Cama individual incluida","Vista a Cartago"])
+Buscador.buscar_en_lista(["Vista a Cartago","TV"])
