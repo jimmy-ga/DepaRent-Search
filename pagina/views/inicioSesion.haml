@@ -5,7 +5,7 @@
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
     %meta{content: "", name: "description"}/
     %meta{content: "", name: "author"}/
-    %title Stylish Portfolio Template for Bootstrap
+    %title DepaRent-Search
     / Bootstrap core CSS
     %link{href: "css/bootstrap.css", rel: "stylesheet"}/
     / JQuery para inputs numeros
@@ -17,26 +17,29 @@
     %link{href: "font-awesome/css/font-awesome.min.css", rel: "stylesheet"}/
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300", rel: "stylesheet", type: "text/css"}/
   %body
-    / Side Menu
-    %a#menu-toggle.btn.btn-primary.btn-lg.toggle{href: "#"}
-      %i.fa.fa-bars
-    #sidebar-wrapper
-      %ul.sidebar-nav
-        %a#menu-close.btn.btn-default.btn-lg.pull-right.toggle{href: "#"}
-          %i.fa.fa-times
-        %li.sidebar-brand
-          %a{href: "http://startbootstrap.com"} Start Bootstrap
-        %li
-          %a{href: "#top"} Home
-        %li
-          %a{href: "#about"} About
-        %li
-          %a{href: "#services"} Services
-        %li
-          %a{href: "#portfolio"} Portfolio
-        %li
-          %a{href: "#contact"} Contact
-    / /Side Menu
+    %nav.navbar.navbar-custom.navbar-fixed-top{role: "navigation"}
+      .container
+        .navbar-header.page-scroll
+          %button.navbar-toggle{"data-target" => ".navbar-main-collapse", "data-toggle" => "collapse", type: "button"}
+            %i.fa.fa-bars
+          %a.navbar-brand{href: "#page-top",style: "color: #000;font-family: 'Open Sans', sans-serif;"}
+            %i.fa.fa-play-circle
+            %span.light{style: "color: #000;"}
+            DepaRent-Search
+        / Collect the nav links, forms, and other content for toggling
+        .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+          %ul.nav.navbar-nav
+            / Hidden li included to remove active class from about link when scrolled up past about section
+            %li.hidden
+              %a{href: "/"}
+            %li.page-scroll
+              %a{href: "/inicio#agregar", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Agregar
+            %li.page-scroll
+              %a{href: "/inicio#buscar", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Buscar
+            %li.page-scroll
+              %a{href: "/logout", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Cerrar sesión
+        / /.navbar-collapse
+      / /.container
     / Full Page Image Header Area
     #top.agregarApt
       .vert-text
@@ -46,7 +49,7 @@
         %a.btn.btn-default.btn-md{href: "#about"} Llenar el formulario
     / /Full Page Image Header Area
     / Formulario de agregar apartamento
-    #about.intro
+    #agregar.intro
       .container
         %h2.text-center Agregar un apartamento
         %br/
@@ -121,7 +124,7 @@
       .vert-text
     / /Transición
     / Buscar Apartamentos
-    #about.intro
+    #buscar.intro
       .container
         %h2.text-center Buscar Apartamentos
         %br/
@@ -176,18 +179,10 @@
           .container
             .row
               .col-md-6.col-md-offset-3.text-center
-                %ul.list-inline
-                  %li
-                    %i.fa.fa-facebook.fa-3x
-                  %li
-                    %i.fa.fa-twitter.fa-3x
-                  %li
-                    %i.fa.fa-dribbble.fa-3x
-                .top-scroll
-                  %a{href: "#top"}
-                    %i.fa.fa-circle-arrow-up.scroll.fa-4x
+                
                 %hr/
-                %p Copyright © Company 2013
+                %p TI-3404 Lenguajes de programación, Instituto Tecnológico de Costa Rica
+                %br
         / /Footer
         / JavaScript
         %script{src: "js/jquery-1.10.2.js"}

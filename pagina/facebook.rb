@@ -61,6 +61,11 @@ class SinatraApp < Sinatra::Base
     haml :mapa, :locals => {:resultados => @a}
   end
 
+  get '/apartaAgregado' do
+    haml :apartaAgregado
+
+  end
+
   post '/geocode' do
 		a=buscar_ubicacion('Instituto tecnologico de costa rica')
 		haml :results, :locals => {:resultados => a}
@@ -77,7 +82,7 @@ class SinatraApp < Sinatra::Base
     precio = params[:precioAparta]
 
 
-    "nombre = #{titulo}, descripcion = #{desc}, correo = #{correo}, telefono = #{telefono}, precio = #{precio}"
+    redirect "/apartaAgregado"
 
   end
 

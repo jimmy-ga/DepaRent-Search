@@ -14,7 +14,6 @@
     %link{href: "font-awesome/css/font-awesome.min.css", rel: "stylesheet"}/
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300", rel: "stylesheet", type: "text/css"}/
   %body
-    / Side Menu
     %nav.navbar.navbar-custom.navbar-fixed-top{role: "navigation"}
       .container
         .navbar-header.page-scroll
@@ -36,38 +35,16 @@
               %a{href: "/inicio#buscar", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Buscar
             %li.page-scroll
               %a{href: "/logout", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Cerrar sesión
-    / /Side Menu
+        / /.navbar-collapse
+      / /.container
     / Full Page Image Header Area
-    #top.header
+    #top.agregarApt
       .vert-text
-        %h1{style: "font-family: 'Open Sans', sans-serif;"} DepaRent-Search
-        %h4
-          Encuentra el apartamento que necesitas, cuando lo necesitas.
+        %h1{style: "font-family: 'Open Sans', sans-serif;"} Listo! :)
+        %h4 Para volver al inicio, haz click en el siguiente botón
         %br/
-        %a.btn.btn-default.btn-md{href: "#about"} Find Out More
+        %a.btn.btn-default.btn-md{href: "/inicio"} ir al inicio
     / /Full Page Image Header Area
-    / Intro
-    #about.intro
-      .container
-        .row
-          .col-md-6.text-center
-            %h2 Iniciar sesión
-            %p.lead Para crear tu cuenta, unicamente inicia sesión con Facebook.
-            %button.btn.btn-facebook
-              %i.fa.fa-facebook
-              | Login with Facebook
-    / /Intro
-    / Callout
-    .callout
-      .vert-text
-        %h1 Iniciar sesión
-        %p.lead Para crear tu cuenta, unicamente inicia sesión con Facebook.
-        %a{href: "http://localhost:4567/auth/facebook"}
-          %button.btn.btn-facebook
-            %i.fa.fa-facebook
-            | Login with Facebook
-        %br/
-    / /Callout
     / Footer
     %footer
       .container

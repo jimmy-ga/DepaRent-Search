@@ -5,7 +5,7 @@
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
     %meta{content: "", name: "description"}/
     %meta{content: "", name: "author"}/
-    %title Stylish Portfolio Template for Bootstrap
+    %title DepaRent-Search
     / Bootstrap core CSS
     %link{href: "css/bootstrap.css", rel: "stylesheet"}/
     %link{href: "css/bootstrap-social.css", rel: "stylesheet", type: "text/css"}/
@@ -15,24 +15,25 @@
     %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300", rel: "stylesheet", type: "text/css"}/
   %body
     / Side Menu
-    %a#menu-toggle.btn.btn-primary.btn-lg.toggle{href: "#"}
-      %i.fa.fa-bars
-    #sidebar-wrapper
-      %ul.sidebar-nav
-        %a#menu-close.btn.btn-default.btn-lg.pull-right.toggle{href: "#"}
-          %i.fa.fa-times
-        %li.sidebar-brand
-          %a{href: "http://startbootstrap.com"} Start Bootstrap
-        %li
-          %a{href: "#top"} Home
-        %li
-          %a{href: "#about"} About
-        %li
-          %a{href: "#services"} Services
-        %li
-          %a{href: "#portfolio"} Portfolio
-        %li
-          %a{href: "#contact"} Contact
+    %nav.navbar.navbar-custom.navbar-fixed-top{role: "navigation"}
+      .container
+        .navbar-header.page-scroll
+          %button.navbar-toggle{"data-target" => ".navbar-main-collapse", "data-toggle" => "collapse", type: "button"}
+            %i.fa.fa-bars
+          %a.navbar-brand{href: "#page-top",style: "color: #000;font-family: 'Open Sans', sans-serif;"}
+            %i.fa.fa-play-circle
+            %span.light{style: "color: #000;"}
+            DepaRent-Search
+        / Collect the nav links, forms, and other content for toggling
+        .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+          %ul.nav.navbar-nav
+            / Hidden li included to remove active class from about link when scrolled up past about section
+            %li.hidden
+              %a{href: "/"}
+            %li.page-scroll
+              %a{href: "/#inicio", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Iniciar Sesión
+        / /.navbar-collapse
+      / /.container
     / /Side Menu
     / Full Page Image Header Area
     #top.header
@@ -48,14 +49,17 @@
       .container
         .row
           .col-md-6.text-center
+            %br
+            %br
+            %br
             
     / /Intro
     / Callout
-    .callout
+    #inicio.callout
       .vert-text
         %h1 Iniciar sesión
         %p.lead Para crear tu cuenta, unicamente inicia sesión con Facebook.
-        %a{href: "http://localhost:4567/auth/facebook"}
+        %a{href: "/auth/facebook"}
           %button.btn.btn-facebook
             %i.fa.fa-facebook
             | Login with Facebook
@@ -66,16 +70,7 @@
       .container
         .row
           .col-md-6.col-md-offset-3.text-center
-            %ul.list-inline
-              %li
-                %i.fa.fa-facebook.fa-3x
-              %li
-                %i.fa.fa-twitter.fa-3x
-              %li
-                %i.fa.fa-dribbble.fa-3x
             .top-scroll
-              %a{href: "#top"}
-                %i.fa.fa-circle-arrow-up.scroll.fa-4x
             %hr/
             %p TI-3404 Lenguajes de programación, Instituto Tecnológico de Costa Rica
             %br/
