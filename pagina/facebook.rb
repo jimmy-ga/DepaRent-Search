@@ -41,7 +41,7 @@ class SinatraApp < Sinatra::Base
   end
   
   get '/auth/failure' do
-    erb "<h1>Authentication Failed:</h1><h3>message:<h3> <pre>#{params}</pre>"
+    haml :error
 
   end
   
