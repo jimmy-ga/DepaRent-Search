@@ -23,9 +23,8 @@
           %button.navbar-toggle{"data-target" => ".navbar-main-collapse", "data-toggle" => "collapse", type: "button"}
             %i.fa.fa-bars
           %a.navbar-brand{href: "#page-top",style: "color: #000;font-family: 'Open Sans', sans-serif;"}
-            %i.fa.fa-play-circle
             %span.light{style: "color: #000;"}
-            DepaRent-Search
+            %img{src: "#{imagen}", style:"width: 1.5em"} #{nombre}
         / Collect the nav links, forms, and other content for toggling
         .collapse.navbar-collapse.navbar-right.navbar-main-collapse
           %ul.nav.navbar-nav
@@ -134,13 +133,13 @@
           .col-md-6
             %legend Buscar por precio
             %form{action: "buscarPrecio"}
-              %input#buscCuartos.form-control{autofocus: "", placeholder: "Ingresa el precio máximo", style: "width: 70%", type: "number"}/
+              %input#buscCuartos.form-control{name: "precio", autofocus: "", placeholder: "Ingresa el precio máximo", style: "width: 70%", type: "number"}/
               %br/
               %input.btn{type: "submit"}/
           .col-md-6
             %legend Buscar por número de cuartos
             %form{action: "buscarNumCuartos"}
-              %input#buscNumCuart.form-control{autofocus: "", placeholder: "Ingresa el número de cuartos que buscas", style: "width: 70%", type: "number"}/
+              %input#buscNumCuart.form-control{name: "cuartos",autofocus: "", placeholder: "Ingresa el número de cuartos que buscas", style: "width: 70%", type: "number"}/
               %br/
               %input.btn{type: "submit"}/
         .row

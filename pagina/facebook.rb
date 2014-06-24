@@ -7,6 +7,8 @@ require 'omniauth-facebook'
 require 'omniauth-twitter'
 require "haml"
 require "./Geokit.rb"
+require "./Logica.rb"
+
 #TODO require 'omniauth-att'
 
 class SinatraApp < Sinatra::Base
@@ -26,28 +28,28 @@ class SinatraApp < Sinatra::Base
     haml :index
   end
   
+  #la pagina que se utiliza para autenticar con facebook
   get '/auth/:provider/callback' do
-    usuario = request.env['omniauth.auth']
-    nombre = usuario["info"]["name"]
-    email = usuario["info"]["email"]
+    usuario = request.env['omniauth.auth'] #información que devuelve la API de facebook
+    $nombre = usuario["info"]["name"] 
+    $email = usuario["info"]["email"]
+    $IDusuario = usuario["uid"]
+    $imgPerfil = usuario["info"]["image"]
     arch = File.open('res.txt', 'w')
-    arch.write(nombre+email)
-    arch.close()
     session[:authenticated] = true
     redirect "/inicio"
   end
   
   get '/auth/failure' do
     erb "<h1>Authentication Failed:</h1><h3>message:<h3> <pre>#{params}</pre>"
+
   end
   
-  get '/auth/:provider/deauthorized' do
-    erb "#{params[:provider]} has deauthorized this app."
-  end
-  
+
+  #pagina de inicio cuando uno inicia sesión
   get '/inicio' do
     throw(:halt, [401, "Not authorized\n"]) unless session[:authenticated]
-    haml :inicioSesion
+    haml :inicioSesion, :locals => {:nombre => "  "+$nombre, :imagen => $imgPerfil}
   end
   
   get '/logout' do
@@ -62,7 +64,7 @@ class SinatraApp < Sinatra::Base
   end
 
   get '/apartaAgregado' do
-    haml :apartaAgregado
+    haml :apartaAgregado, :locals => {:nombre => "  "+$nombre, :imagen => $imgPerfil}
 
   end
 
@@ -73,18 +75,57 @@ class SinatraApp < Sinatra::Base
 
 
 
-##Aquí se recogen los datos del formulario y se devuelven en una página que todavía no está, es una prueba!
+##Aquí se recogen los datos del formulario y agrega el apartamento.
   post "/agregarAparta" do
     titulo = params[:titulo]
     desc = params[:descripcion]
     correo = params[:correo]
     telefono = params[:numeroTelefono]
     precio = params[:precioAparta]
+    numCuartos = params[:cuartosAparta]
+    tieneInternet = params[:internet]
+    esCompartido = params[:comparte]
 
+    apartamento = Apartamento.new(titulo,desc,"23G 00 N 08G 00 E",precio,telefono)
+    apartamento.agrega_caracteristica("tiene #{numCuartos} cuartos")
+    apartamento.agrega_caracteristica(" #{tieneInternet} incluye internet")
+    apartamento.agrega_caracteristica(" #{esCompartido} es compatido")
 
+    Apartamento.agregar_a_lista(apartamento)
+    puts apartamento
     redirect "/apartaAgregado"
-
   end
+
+#busqueda por precio
+get "/buscarPrecio" do
+  precio = params[:precio]
+  #función que busca los apartas de cierto precio o menores
+  "precio = #{precio}" #prueba recolección de datos
+end
+
+#busqueda por numero de cuartos
+
+get "/buscarNumCuartos" do
+  cuartos = params[:cuartos]
+  #función que busca apartas con cierto numero de cuartos
+  "cuartos = #{cuartos}"
+end
+
+get "/buscarInternet" do
+  internet = params[:internetCuarto]
+
+  "internet = #{internet}" #prueba recolección de datos
+ 
+end
+
+get "/buscarCompartido" do
+  compartido = params[:CuartoCompartido]
+
+  "compartido= #{compartido}" #prueba recolección de datos
+end
+
+
+
 
 end
 
