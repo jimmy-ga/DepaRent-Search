@@ -8,7 +8,7 @@ require 'omniauth-twitter'
 require "haml"
 require "./Geokit.rb"
 require "./Logica.rb"
-
+require "./mysql.rb"
 #TODO require 'omniauth-att'
 
 class SinatraApp < Sinatra::Base
@@ -90,6 +90,8 @@ class SinatraApp < Sinatra::Base
     apartamento.agrega_facilidad("tiene #{numCuartos} cuartos")
     apartamento.agrega_facilidad("#{tieneInternet} incluye internet")
     apartamento.agrega_facilidad("#{esCompartido} es compatido")
+    linea=inserta_depa(titulo,desc,telefono,precio,numCuartos,tieneInternet,esCompartido)
+		puts linea
 
     Apartamento.agregar_a_lista(apartamento)
     puts apartamento
