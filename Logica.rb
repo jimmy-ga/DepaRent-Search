@@ -19,8 +19,8 @@ class Arrendario
 		@telefono
 	end
 
-	def getIDs_Asociados()
-		@ids_asociados
+	def getID()
+		@id
 	end
 
 	def getFavoritos()
