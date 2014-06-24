@@ -99,31 +99,51 @@ class SinatraApp < Sinatra::Base
 #busqueda por precio
 get "/buscarPrecio" do
   precio = params[:precio]
-  Apartamento.Sort_Menor_a_Mayor(precio)
+  lista = Apartamento.Sort_Menor_a_Mayor()
   #función que busca los apartas de cierto precio o menores
-  "precio = #{precio}" #prueba recolección de datos
+  contador = 0
+
+  listaMenores = []
+  while contador < lista.length
+    if lista[contador].getPrecio.to_i < precio.to_i
+      listaMenores=listaMenores + [lista[contador]]
+    end
+    contador = contador+1
+  end
+
+    haml :resultados,:locals => {:resultados => listaMenores}
+
 end
 
 #busqueda por numero de cuartos
 
+get "/resultados" do
+ haml :resultados, :locals => {:resultados => $lista_apartamentos}
+end
+
+
 get "/buscarNumCuartos" do
   cuartos = params[:cuartos]
-  Buscador.buscar_en_lista(["tiene #{cuartos} cuartos"])
+  lista = Buscador.buscar_en_lista(["tiene #{cuartos} cuartos"])
+
+  if lista == []
+    haml :resultados, :locals => {:resultados => lista}
+  end
   #función que busca apartas con cierto numero de cuartos
-  "cuartos = #{cuartos}"
+  haml :resultados, :locals => {:resultados => lista}
 end
 
 get "/buscarInternet" do
   internet = params[:internetCuarto]
-  Buscador.buscar_en_lista(["#{internet} incluye internet"])
-  "internet = #{internet}" #prueba recolección de datos
+  lista =Buscador.buscar_en_lista(["#{internet} incluye internet"])
+  haml :resultados, :locals => {:resultados => lista}
  
 end
 
 get "/buscarCompartido" do
   compartido = params[:CuartoCompartido]
-  Buscador.buscar_en_lista(["#{compartido} es compatido"])
-  "compartido= #{compartido}" #prueba recolección de datos
+  lista = Buscador.buscar_en_lista(["#{compartido} es compatido"])
+  haml :resultados, :locals => {:resultados => lista}
 end
 
 

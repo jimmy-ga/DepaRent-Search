@@ -45,10 +45,8 @@ end
 $lista_apartamentos = []
 
 class Buscador
+	@@facilidades_globales = []
 	def self.buscar_en_lista(obj)
-		if obj == []
-			return "No hay resultados para su busqueda"
-		end
 		obj = Buscador.lista_downcase(obj)
 		faci = []
 		ind = 0
@@ -70,7 +68,7 @@ class Buscador
 	end
 
 	def self.buscar_facilidad(faci,car) #recibe lista
-		lista_res = "No hay resultados para su busqueda"
+		lista_res = []
 		est = true
 		for i in $lista_apartamentos
 			if i.buscar_facilidad(faci)
@@ -93,7 +91,7 @@ class Buscador
 		if lista[0] == "N"
 			return lista
 		end
-		lista_res = "No hay resultados para su busqueda"
+		lista_res = []
 		est = true
 		for i in lista
 			if i.buscar_caracteristica(obj)
@@ -284,12 +282,13 @@ class Apartamento < Buscador
 		@id
 	end
 
-	def self.Sort_Menor_a_Mayor(vector) #Primero el precio mas bajo hasta el precio mas alto
+	def self.Sort_Menor_a_Mayor() #Primero el precio mas bajo hasta el precio mas alto
+		vector = $lista_apartamentos
     	i=1
       	while i < vector.length
         	aux = vector[i]
         	j=i-1
-        	while j >= 0 and vector[j].getPrecio > aux.getPrecio
+        	while j >= 0 and vector[j].getPrecio > aux.getPrecio.to_i
             	vector[j+1] = vector[j]
             	j = j - 1
         	end
@@ -299,7 +298,8 @@ class Apartamento < Buscador
       	return vector;
     end
 
-    def self.Sort_Mayor_a_Menor(vector) #Primero el precio mas alto hasta el precio mas bajo
+    def self.Sort_Mayor_a_Menor() #Primero el precio mas alto hasta el precio mas bajo
+    	vector = $lista_apartamentos
     	i=1
       	while i < vector.length
         	aux = vector[i].getPrecio
@@ -315,29 +315,3 @@ class Apartamento < Buscador
     end
 end
 
-apartamento = Apartamento.new("La Posada","Excelente lugar para pasar tu semestre","23G 00 N 08G 00 E",72000,83791648) #Orden 1
-apartamento.agrega_caracteristica("Cama individual incluida")
-apartamento.agrega_caracteristica("Cerca del TEC")
-apartamento.agrega_caracteristica("Vista a Cartago")
-apartamento.agrega_facilidad("TV")
-apartamento.agrega_facilidad("Internet")
-apartamento.agrega_facilidad("Luz")
-puts Apartamento.agregar_a_lista(apartamento)
-
-apartamento1 = Apartamento.new("La Pension","Excelente lugar para pasar tu semestre","32G 00 N 08G 00 E",85000,83791648) #Orden 3
-apartamento1.agrega_caracteristica("Cama individual incluida")
-apartamento1.agrega_caracteristica("Vista a Cartago")
-apartamento1.agrega_facilidad("TV")
-apartamento1.agrega_facilidad("Internet")
-apartamento1.agrega_facilidad("Luz")
-puts Apartamento.agregar_a_lista(apartamento1)
-
-apartamento2 = Apartamento.new("Moe's","Excelente lugar para pasar tu semestre","21G 00 N 08G 00 E",75000,83791648) #Orden 2
-apartamento2.agrega_caracteristica("Vista a Cartago")
-apartamento2.agrega_facilidad("TV")
-apartamento2.agrega_facilidad("Internet")
-apartamento2.agrega_facilidad("Luz")
-puts Apartamento.agregar_a_lista(apartamento2)
-
-#Buscador.buscar_en_lista([])
-puts Apartamento.Sort_Menor_a_Mayor([apartamento,apartamento1,apartamento2])

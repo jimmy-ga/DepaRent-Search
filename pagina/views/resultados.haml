@@ -1,0 +1,64 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
+    %title DepaRent-Search
+    / Bootstrap core CSS
+    %link{href: "css/bootstrap.css", rel: "stylesheet"}/
+    %link{href: "css/bootstrap-social.css", rel: "stylesheet", type: "text/css"}/
+    / Add custom CSS here
+    %link{href: "css/stylish-portfolio.css", rel: "stylesheet"}/
+    %link{href: "font-awesome/css/font-awesome.min.css", rel: "stylesheet"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300", rel: "stylesheet", type: "text/css"}/
+  %body
+
+    / Full Page Image Header Area
+    #top.header
+      .vert-text
+        %h1{style: "font-family: 'Open Sans', sans-serif;"} Resultados de tu consulta
+        %h4
+          Abajo se encuentran los resultados de tu consulta.
+        %br/
+        %a.btn.btn-default.btn-md{href: "#about"} Bajar
+    / /Full Page Image Header Area
+    / Intro
+    #about.intro
+      .container
+        .row
+          .col-md-12.text-center
+            - resultados.each do |aparta|
+              %legend
+              %h2 
+              = aparta.getTitulo
+              %p 
+                %b Descripción:
+              = aparta.getDescripcion
+              %p
+                %b Facilidades:
+              = aparta.getFacilidades.each do |facilidad|
+                =facilidad
+              %p
+                %b Precio:
+              = aparta.getPrecio
+
+    / /Intro
+    / Callout
+    .callout
+      .vert-text
+    / /Callout
+    / Footer
+    %footer
+      .container
+        .row
+          .col-md-6.col-md-offset-3.text-center
+            %hr/
+            %p TI-3404 Lenguajes de programación, Instituto Tecnológico de Costa Rica
+            %br/
+    / /Footer
+    / JavaScript
+    %script{src: "js/jquery-1.10.2.js"}
+    %script{src: "js/bootstrap.js"}
+    / Custom JavaScript for the Side Menu and Smooth Scrolling
