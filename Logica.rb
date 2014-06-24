@@ -284,7 +284,8 @@ class Apartamento < Buscador
 		@id
 	end
 
-	def self.Sort_Menor_a_Mayor(vector) #Primero el precio mas bajo hasta el precio mas alto
+	def self.Sort_Menor_a_Mayor() #Primero el precio mas bajo hasta el precio mas alto
+		vector = $lista_apartamentos
     	i=1
       	while i < vector.length
         	aux = vector[i]
@@ -299,7 +300,8 @@ class Apartamento < Buscador
       	return vector;
     end
 
-    def self.Sort_Mayor_a_Menor(vector) #Primero el precio mas alto hasta el precio mas bajo
+    def self.Sort_Mayor_a_Menor() #Primero el precio mas alto hasta el precio mas bajo
+    	vector = $lista_apartamentos
     	i=1
       	while i < vector.length
         	aux = vector[i].getPrecio
