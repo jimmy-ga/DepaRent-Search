@@ -1,10 +1,10 @@
 class Arrendario
-	def initialize(nombre,correo,telefono,ids,favoritos) 
+	def initialize(nombre,correo,telefono,id) 
 		@nombre = nombre
 		@correo = correo
 		@telefono = telefono
-		@ids_asociados = ids # ids es una lista con los ids de diferentes apartamentos para mas orden
-		@favoritos = favoritos
+		@id = id
+		@favoritos = []
 	end
 
 	def getNombre()
@@ -19,30 +19,26 @@ class Arrendario
 		@telefono
 	end
 
-	def getIDs_Asociados()
-		@ids_asociados
+	def getID()
+		@id
 	end
 
 	def getFavoritos()
 		@favoritos
 	end
 
-	def quita_favorito(id)
+	def quita_favorito(nombre)
 		largo_lista = @favoritos.length
 		while i < largo_lista
-			if @favoritos[i] == id
+			if @favoritos[i].getTitulo == nombre.upcase
 				@favoritos[i] = nil
 				return "Borrado con exito!"
 			end
 		end
 	end
 
-	def agrega_favorito(id)
-		@favoritos = @favoritos + [id]
-	end
-
-	def agrega_id(id)
-		@ids_asociados = @ids_asociados + [id]
+	def agrega_favorito(apartamento)
+		@favoritos = @favoritos + [apartamento]
 	end
 end
 
@@ -242,7 +238,6 @@ class Apartamento < Buscador
 		@ubicacion = ubicacion.downcase
 		@precio = precio
 		@id = id
-		return "Exito al crear apartamento #{self}"
 	end
 
 	def agrega_facilidad(facilidad)
@@ -327,7 +322,7 @@ apartamento.agrega_caracteristica("Vista a Cartago")
 apartamento.agrega_facilidad("TV")
 apartamento.agrega_facilidad("Internet")
 apartamento.agrega_facilidad("Luz")
-Apartamento.agregar_a_lista(apartamento)
+puts Apartamento.agregar_a_lista(apartamento)
 
 apartamento1 = Apartamento.new("La Pension","Excelente lugar para pasar tu semestre","32G 00 N 08G 00 E",85000,83791648) #Orden 3
 apartamento1.agrega_caracteristica("Cama individual incluida")
@@ -335,14 +330,14 @@ apartamento1.agrega_caracteristica("Vista a Cartago")
 apartamento1.agrega_facilidad("TV")
 apartamento1.agrega_facilidad("Internet")
 apartamento1.agrega_facilidad("Luz")
-Apartamento.agregar_a_lista(apartamento1)
+puts Apartamento.agregar_a_lista(apartamento1)
 
 apartamento2 = Apartamento.new("Moe's","Excelente lugar para pasar tu semestre","21G 00 N 08G 00 E",75000,83791648) #Orden 2
 apartamento2.agrega_caracteristica("Vista a Cartago")
 apartamento2.agrega_facilidad("TV")
 apartamento2.agrega_facilidad("Internet")
 apartamento2.agrega_facilidad("Luz")
-Apartamento.agregar_a_lista(apartamento2)
+puts Apartamento.agregar_a_lista(apartamento2)
 
 #Buscador.buscar_en_lista([])
-Apartamento.Sort_Menor_a_Mayor([apartamento,apartamento1,apartamento2])
+puts Apartamento.Sort_Menor_a_Mayor([apartamento,apartamento1,apartamento2])
