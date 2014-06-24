@@ -82,26 +82,23 @@
                   %br/
                   %label{for: "internet", placeholder: "internet"} Internet
                   %div{style: "float:right;"}
-                    %input{name: "internet", type: "radio", value: "si"}>/
-                    Si
-                    = succeed "No" do
-                      %input{name: "internet", type: "radio", value: "no"}/
+                    %select.form-control{ name: "internet",style: "height: 2em;"}
+                      %option Si
+                      %option No
                   %br/
                   %br/
                   %label{for: "cable", placeholder: "cable"} Cable
                   %div{style: "float:right;"}
-                    %input{name: "cable", type: "radio", value: "si"}>/
-                    Si
-                    = succeed "No" do
-                      %input{name: "cable", type: "radio", value: "no"}/
+                    %select.form-control{ name: "cable",style: "height: 2em;"}
+                      %option Si
+                      %option No
                   %br/
                   %br/
                   %label{for: "Comparte", placeholder: "Comparte"} Comparte cuarto?
                   %div{style: "float:right;"}
-                    %input{name: "Comparte", type: "radio", value: "si"}>/
-                    Si
-                    = succeed "No" do
-                      %input{name: "Comparte", type: "radio", value: "no"}/
+                    %select.form-control{ name: "cable",style: "height: 2em;"}
+                      %option Si
+                      %option No
                   %br/
                   %br/
                   %div{style: "float:right;"}

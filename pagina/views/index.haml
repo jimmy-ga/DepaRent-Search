@@ -31,7 +31,7 @@
             %li.hidden
               %a{href: "/"}
             %li.page-scroll
-              %a{href: "/#inicio", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Iniciar Sesión
+              %a{href: "/auth/facebook", style: "color: #000; font-size: 1.3em; font-family: 'Open Sans', sans-serif;"} Iniciar Sesión
         / /.navbar-collapse
       / /.container
     / /Side Menu
@@ -42,29 +42,8 @@
         %h4
           Encuentra el apartamento que necesitas, cuando lo necesitas.
         %br/
-        %a.btn.btn-default.btn-md{href: "#about"} Find Out More
-    / /Full Page Image Header Area
-    / Intro
-    #about.intro
-      .container
-        .row
-          .col-md-6.text-center
-            %br
-            %br
-            %br
-            
+    / /Full Page Image Header Area          
     / /Intro
-    / Callout
-    #inicio.callout
-      .vert-text
-        %h1 Iniciar sesión
-        %p.lead Para crear tu cuenta, unicamente inicia sesión con Facebook.
-        %a{href: "/auth/facebook"}
-          %button.btn.btn-facebook
-            %i.fa.fa-facebook
-            | Login with Facebook
-        %br/
-    / /Callout
     / Footer
     %footer
       .container
