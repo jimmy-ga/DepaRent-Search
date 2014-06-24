@@ -87,9 +87,9 @@ class SinatraApp < Sinatra::Base
     esCompartido = params[:comparte]
 
     apartamento = Apartamento.new(titulo,desc,"23G 00 N 08G 00 E",precio,telefono)
-    apartamento.agrega_caracteristica("tiene #{numCuartos} cuartos")
-    apartamento.agrega_caracteristica(" #{tieneInternet} incluye internet")
-    apartamento.agrega_caracteristica(" #{esCompartido} es compatido")
+    apartamento.agrega_facilidad("tiene #{numCuartos} cuartos")
+    apartamento.agrega_facilidad("#{tieneInternet} incluye internet")
+    apartamento.agrega_facilidad("#{esCompartido} es compatido")
 
     Apartamento.agregar_a_lista(apartamento)
     puts apartamento
@@ -99,6 +99,7 @@ class SinatraApp < Sinatra::Base
 #busqueda por precio
 get "/buscarPrecio" do
   precio = params[:precio]
+  Apartamento.Sort_Menor_a_Mayor(precio)
   #función que busca los apartas de cierto precio o menores
   "precio = #{precio}" #prueba recolección de datos
 end
@@ -107,20 +108,21 @@ end
 
 get "/buscarNumCuartos" do
   cuartos = params[:cuartos]
+  Buscador.buscar_en_lista(["tiene #{cuartos} cuartos"])
   #función que busca apartas con cierto numero de cuartos
   "cuartos = #{cuartos}"
 end
 
 get "/buscarInternet" do
   internet = params[:internetCuarto]
-
+  Buscador.buscar_en_lista(["#{internet} incluye internet"])
   "internet = #{internet}" #prueba recolección de datos
  
 end
 
 get "/buscarCompartido" do
   compartido = params[:CuartoCompartido]
-
+  Buscador.buscar_en_lista(["#{compartido} es compatido"])
   "compartido= #{compartido}" #prueba recolección de datos
 end
 
